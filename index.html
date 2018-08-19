@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="swiper/swiper.min.css">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript">
      /*  var phoneWidth =  parseInt(window.screen.width);
        var phoneHeight=parseInt(window.screen.height);
@@ -138,10 +137,9 @@
         //判斷 WeixinJSBridge 是否存在
         alert(WeixinJSBridge)
         if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
-            alert(123);
+            
             voice.play();
         } else {
-            alert(456);
             //監聽客户端抛出事件"WeixinJSBridgeReady"
             if (document.addEventListener) {
                 document.addEventListener("WeixinJSBridgeReady", function () {

@@ -101,21 +101,6 @@
         }
         event.stopPropagation(); //阻止冒泡
     }
-
-    function autoPlayAudio1(){
-        wx.config({
-// 配置信息, 即使不正确也能使用 wx.ready
-        debug: false,
-        appId: '',
-        timestamp: 1,
-        nonceStr:'',
-        signature: '',
-        jsApiList: []
-    });
-        wx.ready(function() {
-            document.getElementById('musicfx').play();
-        });
-    }
     /*function is_weixn(){
         var ua = navigator.userAgent.toLowerCase();
         if(ua.match(/MicroMessenger/i)=="micromessenger") {
@@ -147,7 +132,10 @@
         just_play(1);
     });*/
     window.onload=function(){
-        autoPlayAudio1();
+        var audio=document.querySelector("#musicfx");
+        document.addEventListener("WeixinJSBridgeReady",function(){
+            audio.play();
+        },false);
     }
 
 </script>

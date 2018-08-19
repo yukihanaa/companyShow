@@ -101,14 +101,15 @@
         }
         event.stopPropagation(); //阻止冒泡
     }
-    /*function is_weixn(){
+    function is_weixn(){
+        return false;
         var ua = navigator.userAgent.toLowerCase();
         if(ua.match(/MicroMessenger/i)=="micromessenger") {
             return true;
         } else {
             return false;
         }
-    }*/
+    }
     /*var play_filter=document.getElementById('music_play_filter');
     play_filter.addEventListener('click', function(){
         just_play(1);
@@ -132,12 +133,9 @@
         just_play(1);
     });*/
     window.onload=function(){
-        var audio=document.querySelector("#musicfx");
-        document.addEventListener("WeixinJSBridgeReady",function(){
-            $('#mc_play audio').get(0).play();
-            $('#mc_play audio').get(0).pause();
-            $('#mc_play audio').get(0).play();
-        },false);
+        if(!is_weixn()){
+            just_play();
+        }
     }
 
 </script>

@@ -130,33 +130,39 @@
     play_filter.addEventListener('mousemove',function(){
         just_play(1);
     });*/
-    
-    $(document).ready(function() {
-        var voice = document.getElementById('musicfx');
-        voice.load();
-        alert(voice.readyState)
-        //调用 <audio> 元素提供的方法 play()
+    var voice = document.getElementById('musicfx');
+    voice.addEventListener("canplay", fakeClick);
+    function fakeClick(fn) {
+        alert("123"+voice.readyState)
         voice.play();
-        //判斷 WeixinJSBridge 是否存在
-        if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
-            alert(voice.readyState);
-            voice.play();
-        } else {
-            //監聽客户端抛出事件"WeixinJSBridgeReady"
-            if (document.addEventListener) {
-                document.addEventListener("WeixinJSBridgeReady", function () {
-                    voice.play();
-                }, false);
-            } else if (document.attachEvent) {
-                document.attachEvent("WeixinJSBridgeReady", function () {
-                    voice.play();
-                });
-                document.attachEvent("onWeixinJSBridgeReady", function () {
-                    voice.play();
-                });
-            }
-        }
-    })
+    }
+    
+//     $(document).ready(function() {
+//         var voice = document.getElementById('musicfx');
+//         voice.load();
+//         alert(voice.readyState)
+//         //调用 <audio> 元素提供的方法 play()
+//         voice.play();
+//         //判斷 WeixinJSBridge 是否存在
+//         if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+//             alert(voice.readyState);
+//             voice.play();
+//         } else {
+//             //監聽客户端抛出事件"WeixinJSBridgeReady"
+//             if (document.addEventListener) {
+//                 document.addEventListener("WeixinJSBridgeReady", function () {
+//                     voice.play();
+//                 }, false);
+//             } else if (document.attachEvent) {
+//                 document.attachEvent("WeixinJSBridgeReady", function () {
+//                     voice.play();
+//                 });
+//                 document.attachEvent("onWeixinJSBridgeReady", function () {
+//                     voice.play();
+//                 });
+//             }
+//         }
+//     })
 
 </script>
 </body>

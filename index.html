@@ -81,12 +81,6 @@
         autoplay: false,//可选选项，自动滑动
     })
 
-
-    document.addEventListener("WeixinJSBridgeReady", function () {
-        $('#mc_play audio').get(0).play();
-    }, false);
-
-
     function play_music(){
         if ($('#mc_play').hasClass('on')){
             $('#mc_play audio').get(0).pause();
@@ -137,11 +131,29 @@
     play_filter.addEventListener('mousemove',function(){
         just_play(1);
     });*/
-   /* window.onload=function(){
-        if(!is_weixn()){
-            just_play();
+    $(document).ready(function() {
+        var voice = document.getElementById('musicfx');
+        //调用 <audio> 元素提供的方法 play()
+        voice.play();
+        //判斷 WeixinJSBridge 是否存在
+        if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+            voice.play();
+        } else {
+            //監聽客户端抛出事件"WeixinJSBridgeReady"
+            if (document.addEventListener) {
+                document.addEventListener("WeixinJSBridgeReady", function () {
+                    voice.play();
+                }, false);
+            } else if (document.attachEvent) {
+                document.attachEvent("WeixinJSBridgeReady", function () {
+                    voice.play();
+                });
+                document.attachEvent("onWeixinJSBridgeReady", function () {
+                    voice.play();
+                });
+            }
         }
-    }*/
+    })
 
 </script>
 </body>

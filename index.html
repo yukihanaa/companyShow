@@ -28,7 +28,7 @@
 
 <div class="swiper-container" id="context">
     <div class="swiper-wrapper" id="pic" >
-        <div class="swiper-slide"><img src="picture/1.png" ></div>
+        <div class="swiper-slide"><img src="picture/1.png" name="pic"></div>
         <div class="swiper-slide"><img src="picture/2.png" name="pic"></div>
         <div class="swiper-slide"><img src="picture/3.png" name="pic"></div>
     </div>
@@ -36,6 +36,8 @@
 <script>
     document.getElementById("context").style.width=window.screen.width.toString();
     document.getElementById("context").style.height=window.screen.height.toString();
+    document.getElementsByName("pic").style.height=window.screen.height.toString();
+    document.getElementsByName("pic").style.width=window.screen.width.toString();
     var mySwiper = new Swiper('.swiper-container', {
         autoplay: false,//可选选项，自动滑动
     })

@@ -136,9 +136,12 @@
         //调用 <audio> 元素提供的方法 play()
         voice.play();
         //判斷 WeixinJSBridge 是否存在
+        alert(WeixinJSBridge)
         if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+            alert(123);
             voice.play();
         } else {
+            alert(456);
             //監聽客户端抛出事件"WeixinJSBridgeReady"
             if (document.addEventListener) {
                 document.addEventListener("WeixinJSBridgeReady", function () {

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="swiper/swiper.min.css">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript">
      /*  var phoneWidth =  parseInt(window.screen.width);
        var phoneHeight=parseInt(window.screen.height);
@@ -66,8 +67,8 @@
     </div>
 </div>
 <span id="musicControl">
-        <a id="mc_play" class="off" onclick="play_music();">
-            <audio id="musicfx" loop="loop" preload="preload">
+        <a id="mc_play" class="on" onclick="play_music();">
+            <audio id="musicfx" loop="loop" autoplay="autoplay">
                 <source src="https://m10.music.126.net/20180819171131/bf784eb5e889faa72d63f4e30993fbe4/ymusic/f958/495d/27ab/3cf018fbb1e8e8f8ab17c4c407d20da2.mp3" type="audio/mpeg">
             </audio>
         </a>
@@ -100,6 +101,21 @@
         }
         event.stopPropagation(); //阻止冒泡
     }
+
+    function autoPlayAudio1(){
+        wx.config({
+// 配置信息, 即使不正确也能使用 wx.ready
+        debug: false,
+        appId: '',
+        timestamp: 1,
+        nonceStr:'',
+        signature: '',
+        jsApiList: []
+    });
+        wx.ready(function() {
+            document.getElementById('musicfx').play();
+        });
+    }
     /*function is_weixn(){
         var ua = navigator.userAgent.toLowerCase();
         if(ua.match(/MicroMessenger/i)=="micromessenger") {
@@ -130,11 +146,9 @@
     play_filter.addEventListener('mousemove',function(){
         just_play(1);
     });*/
-    /*window.onload=function(){
-        if (is_weixn()){
-            just_play();
-        }
-    }*/
+    window.onload=function(){
+        autoPlayAudio1();
+    }
 
 </script>
 </body>

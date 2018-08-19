@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+   <meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="swiper/swiper.min.css">
     <title>Title</title>
     <script type="text/javascript">
@@ -21,27 +21,28 @@
             document.write('<meta name="viewport" content="width='+phoneWidth+',height='+phoneHeight+', user-scalable=no, target-densitydpi=device-dpi">');
         }*/
 
+     var mobileHeight=window.screen.height+"px";
+     document.getElementsByTagName('html')[0].style.minHeight=mobileHeight;
     </script>
     <style type="text/css">
-
+        img { width: 100%; height: 100%}
+        div {width: 100%;height: 100%}
     </style>
 </head>
-<body>
+<body >
 <script src="swiper/swiper.min.js"></script>
 
 
-<div class="swiper-container" id="context">
-    <div class="swiper-wrapper" id="pic" >
+<div class="swiper-container" >
+    <div class="swiper-wrapper" >
         <div class="swiper-slide"><img src="picture/1.png" name="pic"></div>
         <div class="swiper-slide"><img src="picture/2.png" name="pic"></div>
         <div class="swiper-slide"><img src="picture/3.png" name="pic"></div>
     </div>
 </div>
 <script>
-    // document.getElementById("context").style.width=window.screen.width.toString();
-    // document.getElementById("context").style.height=window.screen.height.toString();
-    // document.getElementsByName("pic").style.height=window.screen.height.toString();
-    // document.getElementsByName("pic").style.width=window.screen.width.toString();
+
+
     var mySwiper = new Swiper('.swiper-container', {
         autoplay: false,//可选选项，自动滑动
     })

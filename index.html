@@ -5,19 +5,20 @@
     <link rel="stylesheet" href="swiper/swiper.min.css">
     <title>Title</title>
     <script type="text/javascript">
-       var phoneWidth =  parseInt(window.screen.width);
+     /*  var phoneWidth =  parseInt(window.screen.width);
+       var phoneHeight=parseInt(window.screen.height);
         var phoneScale = phoneWidth/640;
         var ua = navigator.userAgent;
         if (/Android (\d+\.\d+)/.test(ua)){
             var version = parseFloat(RegExp.$1);
             if(version>2.3){
-                document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+                document.write('<meta name="viewport" content="width='+phoneWidth+',height='+phoneHeight+', minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
             }else{
-                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+                document.write('<meta name="viewport" content="width='+phoneWidth+',height='+phoneHeight+', target-densitydpi=device-dpi">');
             }
         } else {
-            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
-        }
+            document.write('<meta name="viewport" content="width='+phoneWidth+',height='+phoneHeight+', user-scalable=no, target-densitydpi=device-dpi">');
+        }*/
 
     </script>
 </head>
@@ -25,18 +26,20 @@
 <script src="swiper/swiper.min.js"></script>
 
 
-<div class="swiper-container" id="pic">
-    <div class="swiper-wrapper" >
+<div class="swiper-container" id="context">
+    <div class="swiper-wrapper" id="pic" >
         <div class="swiper-slide"><img src="picture/1.png" ></div>
         <div class="swiper-slide"><img src="picture/2.png" name="pic"></div>
         <div class="swiper-slide"><img src="picture/3.png" name="pic"></div>
     </div>
 </div>
 <script>
+    document.getElementById("context").style.width=window.screen.width.toString();
+    document.getElementById("context").style.height=window.screen.height.toString();
     var mySwiper = new Swiper('.swiper-container', {
         autoplay: false,//可选选项，自动滑动
     })
-    document.getElementById("pic").style.height=window.screen.height.toString();
+
 
 </script>
 </body>

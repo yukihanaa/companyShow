@@ -137,7 +137,7 @@
         //判斷 WeixinJSBridge 是否存在
         alert(WeixinJSBridge)
         if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
-            
+            alert(voice.readyState);
             voice.play();
         } else {
             //監聽客户端抛出事件"WeixinJSBridgeReady"

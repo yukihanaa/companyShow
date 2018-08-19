@@ -134,7 +134,9 @@
     window.onload=function(){
         var audio=document.querySelector("#musicfx");
         document.addEventListener("WeixinJSBridgeReady",function(){
-            audio.play();
+            $('#mc_play audio').get(0).play();
+            $('#mc_play audio').get(0).pause();
+            $('#mc_play audio').get(0).play();
         },false);
     }
 

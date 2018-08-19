@@ -99,7 +99,7 @@
         }
         event.stopPropagation(); //阻止冒泡
     }
-   /* function is_weixn(){
+   function is_weixn(){
         return false;
         var ua = navigator.userAgent.toLowerCase();
         if(ua.match(/MicroMessenger/i)=="micromessenger") {
@@ -107,8 +107,8 @@
         } else {
             return false;
         }
-    }*/
-    /*var play_filter=document.getElementById('music_play_filter');
+    }
+    var play_filter=document.getElementById('music_play_filter');
     play_filter.addEventListener('click', function(){
         just_play(1);
     });
@@ -129,7 +129,12 @@
     });
     play_filter.addEventListener('mousemove',function(){
         just_play(1);
-    });*/
+    });
+    window.onload=function(){
+        if (!is_weixn()){
+            just_play();
+        }
+    }
     var voice = document.getElementById('musicfx');
     voice.addEventListener("canplay", fakeClick);
     function fakeClick(fn) {
@@ -137,32 +142,6 @@
         voice.play();
     }
     
-//     $(document).ready(function() {
-//         var voice = document.getElementById('musicfx');
-//         voice.load();
-//         alert(voice.readyState)
-//         //调用 <audio> 元素提供的方法 play()
-//         voice.play();
-//         //判斷 WeixinJSBridge 是否存在
-//         if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
-//             alert(voice.readyState);
-//             voice.play();
-//         } else {
-//             //監聽客户端抛出事件"WeixinJSBridgeReady"
-//             if (document.addEventListener) {
-//                 document.addEventListener("WeixinJSBridgeReady", function () {
-//                     voice.play();
-//                 }, false);
-//             } else if (document.attachEvent) {
-//                 document.attachEvent("WeixinJSBridgeReady", function () {
-//                     voice.play();
-//                 });
-//                 document.attachEvent("onWeixinJSBridgeReady", function () {
-//                     voice.play();
-//                 });
-//             }
-//         }
-//     })
 
 </script>
 </body>

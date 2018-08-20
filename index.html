@@ -59,6 +59,8 @@
 <script>
 
 
+    var voice = document.getElementById('musicfx');
+
     var mySwiper = new Swiper ('.swiper-container', {
         on:{
             init: function(){
@@ -128,10 +130,11 @@
     window.onload=function(){
         if (!is_weixn()){
             just_play();
+            voice.play();
         }
     }
 
-    var voice = document.getElementById('musicfx');
+
 
     var event1 = new Event('touchstart');
     //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
@@ -144,8 +147,6 @@
         }
     }, false);
 
-    voice.trigger('click');
-    voice.trigger('click');
     document.dispatchEvent(event1);
 
 

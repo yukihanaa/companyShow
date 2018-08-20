@@ -143,11 +143,11 @@
         if(voiceStatu){
             voice.play();
             alert(voice.readyState);
+            voice.play();
             voiceStatu = false;
         }
     }, false);
 
-    document.dispatchEvent(event1);
     document.dispatchEvent(event1);
 
 

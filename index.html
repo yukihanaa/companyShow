@@ -68,6 +68,8 @@
     }
     function just_play(id){
         $('#mc_play audio').get(0).play();
+        $('#mc_play audio').get(0).pause();
+        $('#mc_play audio').get(0).play();
         $('#mc_play').attr('class','on');
         if (typeof(id)!='undefined'){
             $('#music_play_filter').hide();

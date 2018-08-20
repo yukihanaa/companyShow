@@ -7,37 +7,12 @@
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
-     /*  var phoneWidth =  parseInt(window.screen.width);
-       var phoneHeight=parseInt(window.screen.height);
-        var phoneScale = phoneWidth/640;
-        var ua = navigator.userAgent;
-        if (/Android (\d+\.\d+)/.test(ua)){
-            var version = parseFloat(RegExp.$1);
-            if(version>2.3){
-                document.write('<meta name="viewport" content="width='+phoneWidth+',height='+phoneHeight+', minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
-            }else{
-                document.write('<meta name="viewport" content="width='+phoneWidth+',height='+phoneHeight+', target-densitydpi=device-dpi">');
-            }
-        } else {
-            document.write('<meta name="viewport" content="width='+phoneWidth+',height='+phoneHeight+', user-scalable=no, target-densitydpi=device-dpi">');
-        }*/
-
      var mobileHeight=window.screen.height+"px";
      document.getElementsByTagName('html')[0].style.minHeight=mobileHeight;
     </script>
     <style type="text/css">
         img { width: 100%; height: 100%}
         div {width: 100%;height: 100%}
-        .musicIcon{
-            height: 30px;
-            width: 30px;
-            display:block;
-            top:0px;
-            right:1px;
-            position:fixed;
-            z-index: 100;
-        }
-
         /*@-webkit-keyframes reverseRotataZ{
             0%{-webkit-transform: rotateZ(0deg);}
             100%{-webkit-transform: rotateZ(-360deg);}
@@ -108,38 +83,32 @@
             return false;
         }
     }
-    var play_filter=document.getElementById('music_play_filter');
-    play_filter.addEventListener('click', function(){
-        just_play(1);
-    });
-    play_filter.addEventListener('touchstart', function(){
-        just_play(1);
-    });
-    play_filter.addEventListener('touchend', function(){
-        just_play(1);
-    });
-    play_filter.addEventListener('touchmove', function(){
-        just_play(1);
-    });
-    play_filter.addEventListener('mousedown', function(){
-        just_play(1);
-    });
-    play_filter.addEventListener('mouseup', function(){
-        just_play(1);
-    });
-    play_filter.addEventListener('mousemove',function(){
-        just_play(1);
-    });
+    // var play_filter=document.getElementById('music_play_filter');
+    // play_filter.addEventListener('click', function(){
+    //     just_play(1);
+    // });
+    // play_filter.addEventListener('touchstart', function(){
+    //     just_play(1);
+    // });
+    // play_filter.addEventListener('touchend', function(){
+    //     just_play(1);
+    // });
+    // play_filter.addEventListener('touchmove', function(){
+    //     just_play(1);
+    // });
+    // play_filter.addEventListener('mousedown', function(){
+    //     just_play(1);
+    // });
+    // play_filter.addEventListener('mouseup', function(){
+    //     just_play(1);
+    // });
+    // play_filter.addEventListener('mousemove',function(){
+    //     just_play(1);
+    // });
     window.onload=function(){
         if (!is_weixn()){
             just_play();
         }
-    }
-    var voice = document.getElementById('musicfx');
-    voice.addEventListener("canplay", fakeClick);
-    function fakeClick(fn) {
-        alert("123"+voice.readyState)
-        voice.play();
     }
     
 

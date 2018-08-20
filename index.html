@@ -130,7 +130,6 @@
     window.onload=function(){
         if (!is_weixn()){
             just_play();
-            alert(voice.readyState);
         }
     }
 
@@ -141,7 +140,6 @@
     var voiceStatu = true;
     //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
     document.addEventListener("touchstart",function(e){
-        alert(voice.readyState);
         if(voiceStatu){
             voice.play();
             alert(voice.readyState);
@@ -149,7 +147,7 @@
         }
     }, false);
 
-    document.dispatchEvent(event1);
+    //document.dispatchEvent(event1);
 
 
 

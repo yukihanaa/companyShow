@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="swiper/animate.min.css">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
     <script type="text/javascript">
      /*var mobileHeight=window.screen.height+"px";
      document.getElementsByTagName('html')[0].style.minHeight=mobileHeight;*/
@@ -58,9 +59,18 @@
 <!--<image src="picture/music_on.png" class="musicIcon"></image>-->
 <script>
 
-
     var voice = document.getElementById('musicfx');
 
+    function audioAutoPlay() {
+        document.addEventListener('WeixinJSBridgeReady', function () {
+            voice.play();
+        }, false);
+        document.addEventListener('YixinJSBridgeReady', function () {
+            voice.play();
+        }, false);
+    }
+
+    audioAutoPlay();
     var mySwiper = new Swiper ('.swiper-container', {
         on:{
             init: function(){

@@ -1,0 +1,325 @@
+1.springboot相关基础网站：
+http://blog.51cto.com/wyait/1977842
+
+2.java8 关于匿名函数和闭包的网站：
+https://www.imooc.com/article/details/id/22749
+
+3.关于使用springmvc实现异步的方法：
+https://blog.csdn.net/u013755987/article/details/62098554
+
+4.redis很多数据传输使用管道（pipe）
+5.redis的2种更新策略：1.定时更新；2.立刻更新
+6.redis是单线程
+7.对于可能有1000个属性甚至更多的对象（就是一张表可能有1000个字段这种情况）：采用序列化到磁盘（或其他存储载体）的方式记录入数据库
+8.CocurrentHashMap 它不用做外的同步的情况下默认同时允许16个线程读和写这个Map容器
+9.IOC容器中的bean是装在map中的
+
+10.JAVA中Given final block not properly padded怎么办:
+获取Cipher对象的时候一定要写成：Cipher cipher = Cipher.getInstance("DES(或者AES)/ECB/NoPadding");
+不要写成：Cipher cipher = Cipher.getInstance("DES");
+否则解密的时候会报错：Given final block not properly padded
+原因是Cipher cipher = Cipher.getInstance("DES");
+与Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+等同，填充方式错误，加密的时候会得到16长度的字节数组。
+
+
+11.springMVC向前台输出文件流或者视频流
+ //创建虚拟文件
+            File vFile = new File(pdmFirstDirectory + File.separator + filepath + File.separator +fileName);
+            //对文件进行解密
+            fileName = URLEncoder.encode(fileName, "UTF-8");
+            fileName=fileName.replaceAll("\\+","%20");
+
+            response.setContentType("application/octet-stream");
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+            byte[] body = ftpUtil.downLoadFile(vFile);
+            response.setContentLength(body.length);
+            OutputStream out = response.getOutputStream();
+            out.write(body);
+
+直接使用out.write
+
+@RequestMapping(value = "getVideo")
+public void getVideo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    File file = new File("e:/" + request.getParameter("name"));
+    try (InputStream in = new FileInputStream(file); ServletOutputStream out = response.getOutputStream();) {
+        int length;
+        byte[] buffer = new byte[4 * 1024];
+        // 向前台输出视频流
+        while ((length = in.read(buffer)) > 0) {
+            out.write(buffer, 0, length);
+        }
+    } catch (FileNotFoundException e) {
+        System.out.println("文件读取失败, 文件不存在");
+    }
+}
+
+无需返回值或者responseBody
+
+
+12.mysql find_in_set(column,'1,2,3')相当于select  where colunm in ('1,2,3')
+
+13 mybatis choose when otherwise相当于if else
+
+
+14.无论如何，记住这个结论：调用方实时依赖执行结果的业务场景，请使用调用，而不是MQ。
+
+需要特别说明的是，MQ只用来传递上游任务执行完成的消息，并不用于传递真正的输入输出数据
+
+上游需要关注执行结果时要用“调用”，上游不关注执行结果时，就可以使用MQ了。
+
+什么时候不使用MQ？
+
+上游实时关注执行结果
+
+ 
+
+什么时候使用MQ？
+
+1）数据驱动的任务依赖
+
+2）上游不关心多下游执行结果
+
+3）异步返回执行时间长
+
+
+
+15.当springboot的pom文件不自动引入依赖的时候，尝试添加
+<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+以及spring cloud对应版本
+
+<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+	</properties>
+
+
+16.关于反应式编程以及spring 5的相关文档
+https://www.ibm.com/developerworks/cn/java/spring5-webflux-reactive/index.html
+
+
+17.关于idea中添加远程maven库依赖的方法
+在项目pom文件中加入
+ <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>Maven Aliyun Mirror</name>
+            <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+后在setting的maven中update新加入的maven远程库
+
+
+18.在maven父子pom依赖中，<parent>标签的<relativePath>一定要写对或者不要，否则无法正确依赖父maven
+
+
+19.最近在折腾Maven和Sonatype的Nexus, 倒霉催的国内和公司网络...
+
+Nexus配合finalspeed或者kcptun倒是很给力,  但是Intellij就经常出问题, 出现红字也不动, 默认开了auto import也无效
+
+解决方式是在IDEA右侧Maven Projects面板中, 点击M图标的CMD
+
+输入mvn -U idea:idea
+
+坐等结果完成即可
+
+
+20.spring cloud2 hystrix没有/actuator/hystrix.stream路径解决
+
+在启动类上加入
+
+@EnableHystrix
+@EnableCircuitBreaker
+@EnableHystrixDashboard
+
+在启动类中加入
+
+@Bean
+public ServletRegistrationBean getServlet(){
+
+   HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+
+   ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+
+   registrationBean.setLoadOnStartup(1);
+
+   registrationBean.addUrlMappings("/actuator/hystrix.stream");
+
+   registrationBean.setName("HystrixMetricsStreamServlet");
+
+
+   return registrationBean;
+}
+
+21.关于在java 8中使用collection的parallelStream()方法导致Mysql的lock wait timeout exceeded; try restarting transaction
+也就是循环插入或更新的时候使用并行化的话会导致事物未提交便有另一个事物的问题；可采取去掉并行化，使用stream()方法的办法
+delete时也有可能不是因为并行化产生此问题，应该是事物锁的问题，详情可参见https://blog.csdn.net/mayor125/article/details/76186661
+
+
+
+22。查询出来的数据可以使用steam的collector进行分组，再用reduce进行过滤
+例：
+private static final BinaryOperator<ResultObject> getLastVersion = (v1, v2) -> {
+        return v1.getCreate_date().getTime() > v2.getCreate_date().getTime() ? v1 : v2;
+    };
+进行分组后，对时间进行过滤，取最大时间
+ Map<String,ResultObject> map=list.parallelStream().collect(Collectors.toMap(ResultObject::getFileName, Function.identity(),getLastVersion));
+使用tomap转化为一对一的对象，按名称分组后再过滤
+https://segmentfault.com/q/1010000009998824
+
+
+23.list的retainall方法需要重写自定义的实体类的equals方法
+
+
+24.用map作为mybatis的select的resultType时，可能会因为类型问题出现500的问题，这时候最好用Map<Object,Object>或者新建一个实体
+
+
+25.EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.
+解决方法：
+添加如下配置，关闭自我保护
+Eureka server application.yml
+eureka:
+    server:
+       enableSelfPreservation: false  
+Service application.yml
+eureka:
+    instance:
+          leaseRenewalIntervalInSeconds: 1
+         leaseExpirationDurationInSeconds: 2
+
+26.前端解决微信无法自动播放audio的问题
+引入<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+var audio = document.getElementById('bgMusic');
+    function audioAutoPlay(audio) {
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            audio.play();
+        }, false);
+        document.addEventListener('YixinJSBridgeReady', function () {
+            audio.play();
+        }, false);
+    }
+ 
+    audioAutoPlay(audio);
+
+
+
+27.单线程的redis为什么那么快：
+1、纯内存操作
+2.单线程操作，避免频繁的上下文切换
+3.采用了非阻塞I/O多路复用机制
+
+什么事非阻塞I/O多路复用机制：
+只有单个线程(一个快递员)，通过跟踪每个I/O流的状态(每个快递的送达地点)，来管理多个I/O流。
+简单来说，就是，我们的redis-client在操作的时候，会产生具有不同事件类型的socket。在服务端，有一段I/O多路复用程序，将其置入队列之中。然后，文件事件分派器，依次去队列中取，转发到不同的事件处理器中。
+
+
+
+28.redis的5种数据类型常用场景
+String:一般做一些复杂的计数功能的缓存
+hash:单点登录，cookie，缓存过期时间等
+list:可以做简单的消息队列的功能
+set:可以做全局去重的功能
+zset:zset中多了一个权重参数score，集合中的元素能够按照score进行排列，可以做排行榜应用，取top N操作。另外，可以用来做延时任务，还有范围查找
+
+redis相关的进阶问题：https://www.cnblogs.com/rjzheng/p/9096228.html
+
+
+29.mysql中删除一张数据量非常大的表（2T之类）:
+（1）.首先确保mysql开启了独立表空间 设置：innodb_file_per_table=1 查询:show variables like '%per_table%'
+（2）.对.ibd文件建立硬链接，生产.hdlk文件
+（3）.执行drop table操作
+（4）.然后再用truncate命令删除硬链接文件
+
+
+
+30.模拟高并发，同时多线程执行。
+直接使用java.util.concurrent包下的CyclicBarrier，实现线程同时执行。
+或者使用java.util.concurrent包下的CountDownLatch，CountDownLatch一般有两种用法：
+1，主线程等待所有子线程执行到某个状态，再开始执行
+2，所有子线程等待主线程的循环执行完毕，同时执行
+显然使用CountDownLatch的第二种用法也是可行的。
+
+
+
+31.深度遍历，一个方法递归调用自己，示例:
+private StringBuilder getPropertySQL(List<AndProperty> andProperty,List<OrProperty> orProperty,List<VarProperty> varProperty){
+        if(andProperty!=null){
+            andCount.getAndIncrement();
+            sql.append(" ( ");
+            for(int i=0;i<andProperty.size();i++){
+                if(i>0){
+                    andCount.getAndIncrement();
+                    sql.append(" and ");
+                }
+		//递归调用
+                getPropertySQL(andProperty.get(i).getAndProperty(),andProperty.get(i).getOrProperty(),andProperty.get(i).getVarProperty());
+                andCount.getAndDecrement();
+            }
+            sql.append(" ) ");
+            if(orProperty!=null&&andCount.get()!=0){
+                sql.append(" or ");
+            }else if(andProperty!=null&&andCount.get()!=0){
+                sql.append(" and ");
+            }
+        }
+
+        if(orProperty!=null){
+            orCount.getAndIncrement();
+            sql.append(" ( ");
+            for(int i=0;i<orProperty.size();i++){
+                if(i>0){
+                    orCount.getAndIncrement();
+                    sql.append(" or ");
+                }
+		//递归调用
+                getPropertySQL(orProperty.get(i).getAndProperty(),orProperty.get(i).getOrProperty(),orProperty.get(i).getVarProperty());
+                orCount.getAndDecrement();
+            }
+            sql.append(" ) ");
+            if(andProperty!=null&&orCount.get()!=0){
+                sql.append(" and ");
+            }else if(orProperty!=null&&orCount.get()!=0){
+                sql.append(" or ");
+            }
+        }
+        if(varProperty!=null){
+            String a ="";
+            for (int j = 0; j <varProperty.size() ; j++) {
+                a+=" and ("+(varProperty.get(j).getVarName().equals("any")?"":"property_name='"+varProperty.get(j).getVarName()+"' and")+ " property_value "+varProperty.get(j).getVarCompare()+"("+varProperty.get(j).getVarValue()+") ) ";
+            }
+            a=a.substring(4,a.length());
+            sql.append(a);
+        }
+        return sql;
+
+    }
+
+
+32.注册dll
+"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe"  /codebase "D:\CAD\solidworks\SmartOneControlCenter\SmartOneControlCenter\bin\Debug\SmartOneControlCenter.dll"
+
+
+卸载dll
+"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe"  /codebase "D:\CAD\solidworks\SmartOneControlCenter\SmartOneControlCenter\bin\Debug\SmartOneControlCenter.dll" /u
+
+
